@@ -18,7 +18,7 @@ export default function App() {
 
   const closeModal = () => setIsModalOpen(false);
 
-  const { data, isLoading, isError, isSuccess } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["notes", page, searchQuery],
     queryFn: () => fetchNotes(page, searchQuery),
     placeholderData: keepPreviousData,
@@ -42,6 +42,8 @@ export default function App() {
           Create note +
         </button>
       </header>
+      {isLoading && <strong className={css.loading}>Loading tasks...</strong>}
+      {isError && <strong>Error!!!</strong>}
       <NoteList notes={notes} />
       {isModalOpen && <Modal onClose={closeModal} />}
     </div>
