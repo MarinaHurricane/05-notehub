@@ -7,12 +7,19 @@ import NoteList from "../NoteList/NoteList";
 import Pagination from "../Pagination/Pagination";
 import Modal from "../Modal/Modal";
 import { useDebouncedCallback } from "use-debounce";
+import NoteForm from "../NoteForm/NoteForm";
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const debouncedSetSearchQuery = useDebouncedCallback(setSearchQuery, 300);
+
+    const handleSearch = (newQuery: string) => {
+    setSearchQuery(newQuery);
+    setPage(1);
+  };
+
+  const debouncedSetSearchQuery = useDebouncedCallback(handleSearch, 300);
 
   const openModal = () => setIsModalOpen(true);
 
@@ -44,8 +51,11 @@ export default function App() {
       </header>
       {isLoading && <strong className={css.loading}>Loading tasks...</strong>}
       {isError && <strong>Error!!!</strong>}
-      <NoteList notes={notes} />
-      {isModalOpen && <Modal onClose={closeModal} />}
+      {notes.length > 0 && <NoteList notes={notes} />}
+      {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <NoteForm onClose={closeModal}/>
+        </Modal> )}
     </div>
   );
 }

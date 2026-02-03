@@ -1,6 +1,5 @@
 import axios from "axios";
 import type { Note } from "../types/note";
-import type { NoteId } from "../types/note";
 
 interface fetchNotesResponseProps {
   notes: Note [];
@@ -21,7 +20,6 @@ export const fetchNotes = async(page: number = 1, searchText: string = "") => {
         search: searchText,
       }
     });
-    console.log(data);
     return data;
 };
 
@@ -37,6 +35,10 @@ export const createNote = async( { content, tag, title }: createNoteProps) => {
       },
   });
   return data;
+}
+
+interface NoteId {
+  id: string;
 }
 
 export const deleteNote = async(id: NoteId) => {

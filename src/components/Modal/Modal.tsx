@@ -5,9 +5,10 @@ import { useEffect } from "react";
 
 interface ModalProps {
   onClose: () => void;
+  children: React.ReactNode;
 }
 
-export default function Modal({ onClose }: ModalProps) {
+export default function Modal({ onClose, children }: ModalProps) {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -35,7 +36,7 @@ export default function Modal({ onClose }: ModalProps) {
       }}
     >
       <div className={css.modal}>
-        <NoteForm />
+       {children}
       </div>
     </div>,
     document.body,

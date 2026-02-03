@@ -7,4 +7,3 @@ export interface Note {
     updatedAt: string;
 }
 
-export type NoteId = Note["id"];

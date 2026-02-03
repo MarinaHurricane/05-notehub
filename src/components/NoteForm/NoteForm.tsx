@@ -11,7 +11,7 @@ const NoteFormSchema = Yup.object().shape({
     .required("Title is required!"),
   content: Yup.string().max(500, "Content can't be longer than 500 symbols..."),
   tag: Yup.string()
-    .oneOf(["Todo", "Work", "Personal", " Meeting", "Shopping"])
+    .oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"])
     .required(),
 });
 
@@ -27,13 +27,18 @@ const initialFormValues: NoteFormValues = {
   tag: "Todo",
 };
 
-export default function NoteForm() {
+interface NoteFormProps {
+  onClose: () => void;
+}
+
+export default function NoteForm( { onClose }: NoteFormProps) {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: createNote,
     onSuccess() {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
+      onClose();
     },
     onError(error) {
       console.log(error);
@@ -88,7 +93,7 @@ export default function NoteForm() {
         </div>
 
         <div className={css.actions}>
-          <button type="button" className={css.cancelButton}>
+          <button type="button" className={css.cancelButton} onClick={onClose}>
             Cancel
           </button>
           <button type="submit" className={css.submitButton} disabled={false}>
