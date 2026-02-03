@@ -18,7 +18,7 @@ const NoteFormSchema = Yup.object().shape({
 interface NoteFormValues {
   title: string;
   content: string;
-  tag: "Todo" | "Work" | "Personal" | " Meeting" | "Shopping";
+  tag: "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
 }
 
 const initialFormValues: NoteFormValues = {
