@@ -37,11 +37,12 @@ export const createNote = async( { content, tag, title }: createNoteProps) => {
   return data;
 }
 
-interface NoteId {
+
+interface deleteNoteProps {
   id: string;
 }
 
-export const deleteNote = async(id: NoteId) => {
+export const deleteNote = async( { id }: deleteNoteProps) => {
   const { data } = await axios.delete<Note>(`/notes/${id}`, {
       headers: {
         Authorization: `Bearer ${myKey}`
