@@ -37,7 +37,6 @@ export const createNote = async( { content, tag, title }: createNoteProps) => {
   return data;
 }
 
-
 interface deleteNoteProps {
   id: string;
 }
